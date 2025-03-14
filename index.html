@@ -1,0 +1,518 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Qualidade do Pão</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.2/index.js"
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.js"></script>
+</head>
+<body>
+    <header>
+        <div class="bread-icon">
+            <svg viewBox="0 0 100 100" class="bread-svg">
+                <path d="M20,40 Q50,20 80,40 Q95,50 80,60 Q50,80 20,60 Q5,50 20,40" fill="#e6c288" />
+                <ellipse cx="50" cy="50" rx="22" ry="15" fill="#f9e7c5" />
+                <path d="M35,45 Q50,35 65,45" fill="none" stroke="#d4a76a" stroke-width="1" />
+                <path d="M35,52 Q50,62 65,52" fill="none" stroke="#d4a76a" stroke-width="1" />
+            </svg>
+        </div>
+        <h1>Análise de Qualidade do Pão</h1>
+        <div class="bread-icon">
+            <svg viewBox="0 0 100 100" class="bread-svg">
+                <path d="M20,40 Q50,20 80,40 Q95,50 80,60 Q50,80 20,60 Q5,50 20,40" fill="#e6c288" />
+                <ellipse cx="50" cy="50" rx="22" ry="15" fill="#f9e7c5" />
+                <path d="M35,45 Q50,35 65,45" fill="none" stroke="#d4a76a" stroke-width="1" />
+                <path d="M35,52 Q50,62 65,52" fill="none" stroke="#d4a76a" stroke-width="1" />
+            </svg>
+        </div>
+    </header>
+
+    <main>
+        <div class="intro">
+            <p>Bem-vindo ao nosso guia completo sobre os parâmetros e métodos de análise da qualidade do pão. Descubra como os especialistas avaliam desde a umidade até a vida de prateleira deste alimento tão essencial!</p>
+            <div class="data-viz">
+                <canvas id="qualityChart"></canvas>
+            </div>
+        </div>
+
+        <div class="parameters-container">
+            <div class="parameter-card" id="umidade">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <path d="M25,5 L10,35 Q10,45 25,45 Q40,45 40,35 L25,5" fill="#a7d2fa"/>
+                            <path d="M25,15 L20,25 Q20,31 25,31 Q30,31 30,25 L25,15" fill="#ffffff" opacity="0.7"/>
+                        </svg>
+                    </div>
+                    <h2>1. Umidade</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>A umidade afeta a textura, shelf life (vida de prateleira) e microbiologia do pão.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Secagem em estufa (método gravimétrico). A amostra é pesada, seca em estufa a 105°C até peso constante e a perda de peso é calculada.</p>
+                    
+                    <div class="method-visual">
+                        <div class="oven">
+                            <div class="bread-sample"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="atividade-agua">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <circle cx="25" cy="25" r="20" fill="#bfd8f9"/>
+                            <path d="M15,25 Q25,15 35,25 Q25,35 15,25" fill="#6abfef" stroke="#4a90e2" stroke-width="0.5"/>
+                            <path d="M18,25 Q25,19 32,25" fill="none" stroke="#ffffff" stroke-width="0.5"/>
+                        </svg>
+                    </div>
+                    <h2>2. Atividade de Água (a<sub>w</sub>)</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>A atividade de água está relacionada à estabilidade microbiológica e à textura do pão.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Utilização de um higrômetro ou aparelho específico para medir a atividade de água.</p>
+                    
+                    <div class="method-visual water-activity-meter">
+                        <div class="meter-display">0.95</div>
+                        <div class="meter-sample"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="ph-acidez">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <circle cx="25" cy="25" r="20" fill="#f9d6d6"/>
+                            <text x="15" y="30" font-family="Arial" font-size="12" fill="#d64545">pH</text>
+                            <path d="M32,20 L40,20" stroke="#d64545" stroke-width="2"/>
+                            <path d="M32,25 L37,25" stroke="#d64545" stroke-width="2"/>
+                            <path d="M32,30 L35,30" stroke="#d64545" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h2>3. pH e Acidez</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>O pH e a acidez influenciam o sabor, a textura e a conservação do pão.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Medição do pH com pHmetro e titulação para determinar a acidez titulável.</p>
+                    
+                    <div class="method-visual ph-meter">
+                        <div class="meter-body">
+                            <div class="meter-display">5.5</div>
+                            <div class="meter-probe"></div>
+                        </div>
+                        <div class="solution"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continuamos com mais cards para cada parâmetro -->
+            <div class="parameter-card" id="textura">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <rect x="10" y="15" width="30" height="20" rx="2" fill="#e6c288"/>
+                            <path d="M15,15 L15,35" stroke="#d4a76a" stroke-width="1"/>
+                            <path d="M25,15 L25,35" stroke="#d4a76a" stroke-width="1"/>
+                            <path d="M35,15 L35,35" stroke="#d4a76a" stroke-width="1"/>
+                            <path d="M10,25 L40,25" stroke="#d4a76a" stroke-width="1"/>
+                            <rect x="20" y="10" width="10" height="30" fill="#aaaaaa" opacity="0.3"/>
+                        </svg>
+                    </div>
+                    <h2>4. Textura</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>A textura é crucial para a aceitação do produto pelo consumidor.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Utilização de texturômetro (como o TA.XTplus) para medir firmeza, elasticidade e mastigabilidade.</p>
+                    
+                    <div class="method-visual texturometer">
+                        <div class="probe"></div>
+                        <div class="bread-sample"></div>
+                        <div class="base"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards adicionais seguem o mesmo padrão -->
+            <!-- Incluiremos 4 mais para chegar a 8 e manter uma boa quantidade na demonstração -->
+
+            <div class="parameter-card" id="volume">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <path d="M10,35 L10,20 Q25,10 40,20 L40,35 Z" fill="#f9e7c5" stroke="#e6c288" stroke-width="1"/>
+                            <path d="M15,32 Q25,25 35,32" fill="none" stroke="#d4a76a" stroke-width="1"/>
+                            <path d="M15,28 Q25,21 35,28" fill="none" stroke="#d4a76a" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <h2>5. Volume Específico</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>O volume específico está relacionado à qualidade da farinha e ao processo de fermentação.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Medição do volume do pão pelo método de deslocamento de sementes e cálculo do volume específico (volume/massa).</p>
+                    
+                    <div class="method-visual seed-displacement">
+                        <div class="container">
+                            <div class="seeds"></div>
+                            <div class="bread"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="cor">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <circle cx="25" cy="25" r="15" fill="#e6c288"/>
+                            <path d="M25,10 L28,15 L33,16 L29,20 L30,25 L25,23 L20,25 L21,20 L17,16 L22,15 Z" fill="#d4a76a"/>
+                        </svg>
+                    </div>
+                    <h2>6. Cor da Casca e do Miolo</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>A cor afeta a aparência e a percepção de frescor do pão.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Utilização de colorímetro ou espectrofotômetro para medir a cor em escalas como CIELab (L*, a*, b*).</p>
+                    
+                    <div class="method-visual colorimeter">
+                        <div class="device">
+                            <div class="lens"></div>
+                            <div class="display">
+                                <div>L*: 72.5</div>
+                                <div>a*: 3.2</div>
+                                <div>b*: 22.7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="sensorial">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <circle cx="25" cy="25" r="20" fill="#f9d9e7"/>
+                            <path d="M15,25 Q25,35 35,25" fill="none" stroke="#e77fa9" stroke-width="2"/>
+                            <circle cx="18" cy="20" r="3" fill="#e77fa9"/>
+                            <circle cx="32" cy="20" r="3" fill="#e77fa9"/>
+                        </svg>
+                    </div>
+                    <h2>7. Análise Sensorial</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>A análise sensorial avalia atributos como sabor, aroma, textura e aparência.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Testes sensoriais com painéis treinados ou consumidores, utilizando escalas hedônicas ou descritivas.</p>
+                    
+                    <div class="method-visual sensory-panel">
+                        <div class="people">
+                            <div class="person"></div>
+                            <div class="person"></div>
+                            <div class="person"></div>
+                        </div>
+                        <div class="rating-scale">
+                            <div class="scale-point"></div>
+                            <div class="scale-point"></div>
+                            <div class="scale-point"></div>
+                            <div class="scale-point"></div>
+                            <div class="scale-point"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="composicao">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <rect x="10" y="15" width="30" height="20" rx="2" fill="#f9e7c5"/>
+                            <rect x="13" y="18" width="7" height="14" rx="1" fill="#a1d4a1"/>
+                            <rect x="22" y="18" width="7" height="14" rx="1" fill="#f9d6d6"/>
+                            <rect x="31" y="18" width="7" height="14" rx="1" fill="#bfd8f9"/>
+                        </svg>
+                    </div>
+                    <h2>8. Composição Química</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>A composição química afeta o valor nutricional e as propriedades funcionais do pão.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Proteínas: Método de Kjeldahl ou Dumas.<br>
+                    Lipídios: Extração com solvente (Soxhlet).<br>
+                    Carboidratos: Métodos enzimáticos ou por diferença.<br>
+                    Fibra: Método de Van Soest ou enzimático-gravimétrico.</p>
+                    
+                    <div class="method-visual chemical-analysis">
+                        <div class="lab-equipment">
+                            <div class="flask"></div>
+                            <div class="tubes"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="see-more">
+            <button id="showMoreBtn">Ver mais parâmetros</button>
+        </div>
+
+        <div class="hidden-parameters">
+            <!-- Parâmetros adicionais (9-15) serão exibidos quando o botão "Ver mais" for clicado -->
+            <div class="parameter-card" id="microbiologia">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <circle cx="25" cy="25" r="18" fill="#e9f5e9"/>
+                            <circle cx="20" cy="20" r="3" fill="#a1d4a1"/>
+                            <circle cx="30" cy="20" r="2" fill="#a1d4a1"/>
+                            <circle cx="25" cy="30" r="4" fill="#a1d4a1"/>
+                            <circle cx="15" cy="25" r="2" fill="#a1d4a1"/>
+                            <circle cx="35" cy="25" r="3" fill="#a1d4a1"/>
+                        </svg>
+                    </div>
+                    <h2>9. Análise Microbiológica</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>Avalia a segurança microbiológica do pão.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Contagem de microrganismos (bactérias, leveduras, bolores) em meios de cultura específicos, seguindo normas como ISO ou FDA BAM.</p>
+                    
+                    <div class="method-visual petri-dish">
+                        <div class="dish">
+                            <div class="colonies"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="contaminantes">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <polygon points="25,10 35,20 35,35 15,35 15,20" fill="#f9d6d6"/>
+                            <text x="20" y="28" font-family="Arial" font-size="10" fill="#d64545">⚠</text>
+                        </svg>
+                    </div>
+                    <h2>10. Análise de Contaminantes</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>Detecta a presença de contaminantes como micotoxinas, metais pesados ou resíduos de pesticidas.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Cromatografia líquida (HPLC) ou gasosa (GC) acoplada a espectrometria de massas (MS).</p>
+                    
+                    <div class="method-visual chromatography">
+                        <div class="equipment">
+                            <div class="column"></div>
+                            <div class="detector"></div>
+                        </div>
+                        <div class="results">
+                            <div class="peaks"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="shelf-life">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <circle cx="25" cy="25" r="20" fill="#f2f2f2"/>
+                            <path d="M25,15 L25,25 L32,30" fill="none" stroke="#888888" stroke-width="2"/>
+                            <circle cx="25" cy="25" r="2" fill="#888888"/>
+                        </svg>
+                    </div>
+                    <h2>11. Análise de Shelf Life</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>Determina o tempo que o pão mantém suas características sensoriais e microbiológicas.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Armazenamento acelerado (em condições controladas de temperatura e umidade) e avaliação periódica dos parâmetros de qualidade.</p>
+                    
+                    <div class="method-visual shelf-life">
+                        <div class="bread fresh"></div>
+                        <div class="bread medium"></div>
+                        <div class="bread old"></div>
+                        <div class="timeline"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="fermentacao">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <rect x="15" y="20" width="20" height="15" rx="2" fill="#f9e7c5"/>
+                            <circle cx="20" cy="25" r="1" fill="#d4a76a"/>
+                            <circle cx="24" cy="27" r="1" fill="#d4a76a"/>
+                            <circle cx="28" cy="24" r="1" fill="#d4a76a"/>
+                            <circle cx="22" cy="29" r="1" fill="#d4a76a"/>
+                            <circle cx="26" cy="26" r="1" fill="#d4a76a"/>
+                            <circle cx="30" cy="28" r="1" fill="#d4a76a"/>
+                            <path d="M20,15 Q25,10 30,15" fill="none" stroke="#d4a76a" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <h2>12. Análise de Fermentação</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>Avalia a eficiência da fermentação.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Utilização de fermentômetros ou medição do volume de gás produzido.</p>
+                    
+                    <div class="method-visual fermentometer">
+                        <div class="container">
+                            <div class="dough"></div>
+                            <div class="bubbles"></div>
+                        </div>
+                        <div class="measurement">
+                            <div class="scale"></div>
+                            <div class="pointer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="gluten">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <path d="M15,20 Q25,10 35,20 Q45,30 35,40 Q25,50 15,40 Q5,30 15,20" fill="#f5e9c9"/>
+                            <path d="M20,25 Q25,20 30,25 Q35,30 30,35 Q25,40 20,35 Q15,30 20,25" fill="#e8d5a5"/>
+                        </svg>
+                    </div>
+                    <h2>13. Análise de Glúten</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>A qualidade do glúten afeta a estrutura e textura do pão.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Índice de Glúten (IG) ou Alveografia.</p>
+                    
+                    <div class="method-visual gluten-analysis">
+                        <div class="gluten-ball"></div>
+                        <div class="stretching">
+                            <div class="stretch-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="amido">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <circle cx="25" cy="25" r="15" fill="#f8f8f8"/>
+                            <circle cx="20" cy="20" r="3" fill="#e8e8e8"/>
+                            <circle cx="30" cy="20" r="4" fill="#e8e8e8"/>
+                            <circle cx="25" cy="30" r="5" fill="#e8e8e8"/>
+                            <circle cx="18" cy="28" r="3" fill="#e8e8e8"/>
+                            <circle cx="32" cy="29" r="2" fill="#e8e8e8"/>
+                        </svg>
+                    </div>
+                    <h2>14. Análise de Amido</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>Afeta a textura e o envelhecimento do pão.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Calorimetria diferencial de varredura (DSC) ou espectroscopia de infravermelho (FTIR).</p>
+                    
+                    <div class="method-visual starch-analysis">
+                        <div class="equipment">
+                            <div class="spectrometer"></div>
+                        </div>
+                        <div class="graph">
+                            <div class="graph-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="aditivos">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg viewBox="0 0 50 50" class="param-icon">
+                            <rect x="15" y="15" width="20" height="20" rx="2" fill="#d5f5d5"/>
+                            <text x="18" y="30" font-family="Arial" font-size="12" fill="#5a9c5a">A+</text>
+                        </svg>
+                    </div>
+                    <h2>15. Análise de Aditivos</h2>
+                </div>
+                <div class="card-content">
+                    <h3>Importância:</h3>
+                    <p>Verifica a presença e concentração de aditivos.</p>
+                    
+                    <h3>Método:</h3>
+                    <p>Cromatografia líquida (HPLC) ou gasosa (GC).</p>
+                    
+                    <div class="method-visual additives-analysis">
+                        <div class="chemical-structure">
+                            <div class="atoms"></div>
+                            <div class="bonds"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h2>Considerações Finais</h2>
+            <ul>
+                <li>A escolha dos parâmetros e métodos depende do tipo de pão, dos requisitos regulatórios e dos objetivos da análise.</li>
+                <li>É importante seguir normas e padrões reconhecidos (como ISO, AACC, ou métodos da AOAC) para garantir a confiabilidade dos resultados.</li>
+                <li>A calibração dos equipamentos e a validação dos métodos são essenciais para garantir a precisão e exatidão das análises.</li>
+                <li>Esses parâmetros e métodos fornecem uma visão abrangente da qualidade do pão, permitindo o controle de processos e a garantia de um produto final de alta qualidade.</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="bread-pattern">
+            <svg width="100%" height="20" preserveAspectRatio="none">
+                <path d="M0,10 Q5,5 10,10 Q15,15 20,10 Q25,5 30,10 Q35,15 40,10 Q45,5 50,10 Q55,15 60,10 Q65,5 70,10 Q75,15 80,10 Q85,5 90,10 Q95,15 100,10" stroke="#e6c288" stroke-width="2" fill="none" />
+            </svg>
+        </div>
+        <p> 2023 Análise de Qualidade do Pão - Todos os direitos reservados</p>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
